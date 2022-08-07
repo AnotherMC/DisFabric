@@ -30,7 +30,7 @@ public class DiscordEventListener extends ListenerAdapter {
         if(e.getAuthor() != e.getJDA().getSelfUser() && !e.getAuthor().isBot() && e.getChannel().getId().equals(DisFabric.config.channelId) && server != null) {
             if(e.getMessage().getContentRaw().startsWith("!console") && Arrays.asList(DisFabric.config.adminsIds).contains(e.getAuthor().getId())) {
                 String command = e.getMessage().getContentRaw().replace("!console ", "");
-                server.getCommandManager().execute(getDiscordCommandSource(), command);
+                server.getCommandManager().executeWithPrefix(getDiscordCommandSource(), command);
 
             } else if(e.getMessage().getContentRaw().startsWith("!online")) {
                 List<ServerPlayerEntity> onlinePlayers = server.getPlayerManager().getPlayerList();

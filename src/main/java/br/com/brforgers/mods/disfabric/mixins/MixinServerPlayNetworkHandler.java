@@ -31,7 +31,7 @@ public abstract class MixinServerPlayNetworkHandler {
     @Shadow private MinecraftServer server;
     @Shadow public ServerPlayerEntity player;
 
-    @Inject(at = @At(value = "INVOKE", target = "net/minecraft/server/PlayerManager.broadcast (Lnet/minecraft/server/filter/FilteredMessage;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/util/registry/RegistryKey;)V"), method = "handleDecoratedMessage", cancellable = true)
+    /*@Inject(at = @At(value = "INVOKE", target = "net/minecraft/server/PlayerManager.broadcast (Lnet/minecraft/server/filter/FilteredMessage;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/util/registry/RegistryKey;)V"), method = "handleDecoratedMessage", cancellable = true)
     private void handleMessage(FilteredMessage<SignedMessage> message, CallbackInfo ci) {
         String string = message.raw().getContent().getString();
         String msg = StringUtils.normalizeSpace(string);
@@ -40,5 +40,5 @@ public abstract class MixinServerPlayNetworkHandler {
             this.server.getPlayerManager().broadcast(FilteredMessage.permitted(SignedMessage.of(eventResult.get())), this.player, MessageType.CHAT);
             ci.cancel();
         }
-    }
+    }*/
 }

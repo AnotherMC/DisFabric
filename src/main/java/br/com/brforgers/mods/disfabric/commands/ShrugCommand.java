@@ -18,7 +18,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class ShrugCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("shrug").then(argument("message", MessageArgumentType.message()).executes(context -> {
+        /*dispatcher.register(literal("shrug").then(argument("message", MessageArgumentType.message()).executes(context -> {
                 MessageArgumentType.SignedMessage signedMessage = MessageArgumentType.getSignedMessage(context, "message");
                 ServerCommandSource serverCommandSource = (ServerCommandSource)context.getSource();
                 PlayerManager playerManager = serverCommandSource.getServer().getPlayerManager();
@@ -36,6 +36,6 @@ public class ShrugCommand {
             playerManager.broadcast(FilteredMessage.permitted(SignedMessage.of(eventResult.orElseGet(() -> Text.of("¯\\_(ツ)_/¯")))) , serverCommandSource, MessageType.CHAT);
             return 1;
             }
-        ));
+        ));*/
     }
 }

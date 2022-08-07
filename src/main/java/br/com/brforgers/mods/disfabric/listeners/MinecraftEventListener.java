@@ -19,27 +19,27 @@ import net.minecraft.util.Pair;
 
 public class MinecraftEventListener {
     public void init() {
-//        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) -> {
-//            if (!DisFabric.stop && sender != null) {
-//                Pair<String, String> convertedPair = Utils.convertMentionsFromNames(message.raw().getContent().getString());
-//                if (DisFabric.config.isWebhookEnabled) {
-//                    JSONObject body = new JSONObject();
-//                    body.put("username", sender.getEntityName());
-//                    body.put("avatar_url", "https://mc-heads.net/avatar/" + (DisFabric.config.useUUIDInsteadNickname ? sender.getUuid() : sender.getEntityName()));
-//                    JSONObject allowed_mentions = new JSONObject();
-//                    allowed_mentions.put("parse", new String[]{"users", "roles"});
-//                    body.put("allowed_mentions", allowed_mentions);
-//                    body.put("content", convertedPair.getLeft());
-//                    try {
-//                        Unirest.post(DisFabric.config.webhookURL).header("Content-Type", "application/json").body(body).asJsonAsync();
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
-//                } else {
-//                    DisFabric.textChannel.sendMessage(DisFabric.config.texts.playerMessage.replace("%playername%", MarkdownSanitizer.escape(sender.getEntityName())).replace("%playermessage%", convertedPair.getLeft())).queue();
-//                }
-//            }
-//        });
+        ServerMessageEvents.CHAT_MESSAGE.register((message, sender, typeKey) -> {
+            if (!DisFabric.stop && sender != null) {
+                Pair<String, String> convertedPair = Utils.convertMentionsFromNames(message.getContent().getString());
+                if (DisFabric.config.isWebhookEnabled) {
+                    JSONObject body = new JSONObject();
+                    body.put("username", sender.getEntityName());
+                    body.put("avatar_url", "https://mc-heads.net/avatar/" + (DisFabric.config.useUUIDInsteadNickname ? sender.getUuid() : sender.getEntityName()));
+                    JSONObject allowed_mentions = new JSONObject();
+                    allowed_mentions.put("parse", new String[]{"users", "roles"});
+                    body.put("allowed_mentions", allowed_mentions);
+                    body.put("content", convertedPair.getLeft());
+                    try {
+                        Unirest.post(DisFabric.config.webhookURL).header("Content-Type", "application/json").body(body).asJsonAsync();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    DisFabric.textChannel.sendMessage(DisFabric.config.texts.playerMessage.replace("%playername%", MarkdownSanitizer.escape(sender.getEntityName())).replace("%playermessage%", convertedPair.getLeft())).queue();
+                }
+            }
+        });
 //
 //        ServerMessageDecoratorEvent.EVENT.register(
 //                // Used to provide better compatibility across mods
@@ -75,7 +75,7 @@ public class MinecraftEventListener {
 //                }
 //        );
 
-        ServerChatCallback.EVENT.register((playerEntity, rawMessage) -> {
+/*        ServerChatCallback.EVENT.register((playerEntity, rawMessage) -> {
             if (!DisFabric.stop) {
                 Pair<String, String> convertedPair = Utils.convertMentionsFromNames(rawMessage);
                 if (DisFabric.config.isWebhookEnabled) {
@@ -102,7 +102,7 @@ public class MinecraftEventListener {
                 }
             }
             return Optional.empty();
-        });
+        });*/
 
         PlayerAdvancementCallback.EVENT.register((playerEntity, advancement) -> {
             if(DisFabric.config.announceAdvancements && advancement.getDisplay() != null && advancement.getDisplay().shouldAnnounceToChat() && playerEntity.getAdvancementTracker().getProgress(advancement).isDone() && !DisFabric.stop) {
